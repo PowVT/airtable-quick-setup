@@ -13,29 +13,24 @@ const SomeChart = ({ siteData, getData }) => {
 
     const useStyles = makeStyles({
         table: {
-          width: 650,
+          width: 850,
         },
     });
 
     const classes = useStyles();
 
-    const [  rows, setRows ] = useState([]);
-   
+    const [ rows, setRows ] = useState([]);
+
     function setTable(siteData) {
         for(var i=0; i < siteData.length;i++){
-            let barcode = siteData[i]["fields"]["Site Name"];
-            let weight = siteData[i]["fields"]["Weight"];
-            let purity = siteData[i]["fields"]["Purity"];
-            let maxPrice = siteData[i]["fields"]["Max Price - LBMA Fix"];
-            let pricePaid = siteData[i]["fields"]["Price Paid"];
-            rows.push({barcode,weight,purity,maxPrice,pricePaid})
+            rows.push(siteData[i]["fields"])
         }
         console.log(rows)
         getData()
     }
     
     return(
-        <div >
+        <div align='center'>
             <div style={{margin:'12px'}}>
                 <Button
                 variant="contained" 
@@ -58,11 +53,12 @@ const SomeChart = ({ siteData, getData }) => {
                 </Button>
             </div>
             <h2 >Purchase At Site</h2>
-            <TableContainer component={Paper} style={{width:"650px"}}>
+            <TableContainer component={Paper} style={{width:"850px", background:'#cccccc'}}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
-                        <TableCell>Bag ID</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell align="middle">Site&nbsp;</TableCell>
                         <TableCell align="right">Weight&nbsp;(g)</TableCell>
                         <TableCell align="right">Purity&nbsp;</TableCell>
                         <TableCell align="right">Max Price&nbsp;($)</TableCell>
@@ -73,12 +69,13 @@ const SomeChart = ({ siteData, getData }) => {
                     {rows.map((row) => (
                         <TableRow key={row.name}>
                         <TableCell component="th" scope="row">
-                            {row.barcode}
+                            {row["Date and Time"]}
                         </TableCell>
-                        <TableCell align="right">{row.weight}</TableCell>
-                        <TableCell align="right">{row.purity}</TableCell>
-                        <TableCell align="right">{row.maxPrice}</TableCell>
-                        <TableCell align="right">{row.pricePaid}</TableCell>
+                        <TableCell align="right">{row["Site Name"]}</TableCell>
+                        <TableCell align="right">{row["Weight"]}</TableCell>
+                        <TableCell align="right">{row["Purity"]}</TableCell>
+                        <TableCell align="right">{row["Max Price - LBMA Fix"]}</TableCell>
+                        <TableCell align="right">{row["Price Paid"]}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
