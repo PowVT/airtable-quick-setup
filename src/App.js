@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Airtable from "airtable";
+import SomeChart from "./components/SomeChart"
+
+const base = new Airtable({ apiKey: "your-key" }).base("your-base-id");
 
 function App() {
+
+  const [ siteData, setSiteData  ] = useState([]);
+
+  function getData() {
+    base("Purhase at Site")
+      .select({ view: "Grid view" })
+      .eachPage((records, fetchNextPage) => {
+        setSiteData(records);
+        console.log(records);      
+        fetchNextPage();
+      });
+  }
+
+
+  console.log(siteData)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+    <SomeChart
+    siteData={siteData}
+    getData={getData}>  
+    </SomeChart>
+      
     </div>
   );
 }
