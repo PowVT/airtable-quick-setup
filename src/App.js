@@ -9,7 +9,7 @@ function App() {
   const [ siteData, setSiteData  ] = useState([]);
 
   function getData() {
-    base("Purhase at Site")
+    base("Table Name")
       .select({ view: "Grid view" })
       .eachPage((records, fetchNextPage) => {
         setSiteData(records);
