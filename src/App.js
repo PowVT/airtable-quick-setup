@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Airtable from "airtable";
 import SomeChart from "./components/SomeChart"
 
-const base = new Airtable({ apiKey: "keyEsZWIKUUuVDsYf" }).base("apptqLdtTMWIHeuGy");
+const base = new Airtable({ apiKey: "your-key" }).base("your-base");
 
 function App() {
 
